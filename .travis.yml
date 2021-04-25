@@ -12,8 +12,8 @@ script:
     - mingw32-make VERBOSE=1
     - mingw32-make install
     - sha256sum --check ../sha256.checksum
-    - fsg/filteredseed/filteredseed
-    - fsg/co-op-fsg/co-op-fsg
+    - cd fsg/filteredseed/ && filteredseed
+    - cd fsg/co-op-fsg/ && co-op-fsg
     - zip -r fsg_windows${TRAVIS_TAG}.zip fsg/
 
 deploy:
