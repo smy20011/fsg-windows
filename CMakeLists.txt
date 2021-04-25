@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 # set the project name
 project(FilterSeed)
-set(LIBRARIES gcrypt gpg-error cubiomes m pthread minecraft_nether_gen_rs dl)
+set(LIBRARIES gcrypt gpg-error cubiomes m pthread minecraft_nether_gen_rs)
 
 message("Generator: ${CMAKE_GENERATOR}")
 if(${CMAKE_GENERATOR} MATCHES "MinGW.*")
@@ -10,6 +10,7 @@ if(${CMAKE_GENERATOR} MATCHES "MinGW.*")
     list(APPEND LIBRARIES userenv intl.dll ws2_32)
 else()
     set(LIB_DIR libs/linux_x86_64)
+    list(APPEND LIBRARIES dl)
 endif()
 
 
