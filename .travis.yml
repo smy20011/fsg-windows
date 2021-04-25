@@ -2,13 +2,16 @@ language: c
 
 os: windows
 
+before_install:
+    - choco install zip
+
 script:
     - mkdir build
     - cd build
     - cmake -G 'MinGW Makefiles' ..
     - mingw32-make VERBOSE=1
     - mingw32-make install
-    - tar -cvzf fsg_windows${TRAVIS_TAG}.zip fsg/
+    - zip -r fsg_windows${TRAVIS_TAG}.zip fsg/
 
 deploy:
   provider: releases
