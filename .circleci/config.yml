@@ -1,0 +1,18 @@
+version: 2.1
+
+orbs:
+  win: circleci/windows@2.2.0
+
+jobs:
+  build:
+    executor:
+      name: win/default
+      shell: bash.exe
+    steps:
+      - checkout
+      - run:
+          name: Installing g++
+          command: 'choco install mingw cmake'
+      - run:
+          name: Compiling Code
+          command: 'mkdir build && cd build && cmake .. && make'
