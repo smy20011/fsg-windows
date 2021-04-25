@@ -1,0 +1,25 @@
+--- csprng.c	2021-04-15 15:05:19.000000000 -0700
++++ csprng_patched.c	2021-04-25 02:29:49.530890047 -0700
+@@ -80,18 +80,18 @@
+ 
+ uint64_t rand64()
+ {
++  srand(time(0));
++  
+   uint64_t rv = 0;
+   int c,i;
+-  FILE *fp;
+-  fp = fopen("/dev/urandom", "r");
+ 
+   for (i=0; i < sizeof(rv); i++) {
+      do {
+-       c = fgetc(fp);
++       c = rand();
+      } while (c < 0);
+      rv = (rv << 8) | (c & 0xff);
+   }
+-  fclose(fp);
++
+   return rv;
+ }
+ 
