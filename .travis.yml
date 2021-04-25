@@ -11,6 +11,8 @@ script:
     - cmake -G 'MinGW Makefiles' ..
     - mingw32-make VERBOSE=1
     - mingw32-make install
+    - sha256sum --check ../sha256.checksum
+    - fsg/filteredseed/filteredseed
     - zip -r fsg_windows${TRAVIS_TAG}.zip fsg/
 
 deploy:
