@@ -8,7 +8,7 @@ script:
     - cmake -G 'MinGW Makefiles' ..
     - mingw32-make VERBOSE=1
     - mingw32-make install
-    - zip -r fsg_windows${TRAVIS_TAG}.zip fsg/
+    - tar -cvzf fsg_windows${TRAVIS_TAG}.zip fsg/
 
 deploy:
   provider: releases
