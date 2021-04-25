@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 # set the project name
 project(FilterSeed)
-set(LIBRARIES gcrypt gpg-error cubiomes m pthread minecraft_nether_gen_rs)
+set(LIBRARIES gcrypt gpg-error cubiomes m pthread minecraft_nether_gen_rs dl)
 
 message("Generator: ${CMAKE_GENERATOR}")
 if(${CMAKE_GENERATOR} MATCHES "MinGW.*")
@@ -25,9 +25,19 @@ foreach(SOURCE_FILE IN LISTS SOURCE_FILES)
     add_custom_command(
         OUTPUT ${PATCHED_SOURCE}
         COMMAND sed "s/unsigned long/uint64_t/g; s/1UL /1ULL /g; s/long sh_dist/int64_t sh_dist/g;" ${SOURCE_FILE} > ${PATCHED_SOURCE}
-	COMMAND patch ${PATCHED_SOURCE} ${CMAKE_SOURCE_DIR}/rand.patch
+	    COMMAND patch ${PATCHED_SOURCE} ${CMAKE_SOURCE_DIR}/rand.patch
         DEPENDS ${SOURCE_FILE}
         VERBATIM)
-    MESSAGE("Find build target ${FOLDER_NAME}")
+    message("Find build target ${FOLDER_NAME}")
     add_executable(${FOLDER_NAME} ${PATCHED_SOURCE})
+    set(INSTALL_DIR ${CMAKE_BINARY_DIR}/fsg/${FOLDER_NAME})
+    file(MAKE_DIRECTORY ${INSTALL_DIR})
+    install(
+        TARGETS ${FOLDER_NAME}
+        DESTINATION ${INSTALL_DIR}
+    )
+    install(
+        FILES ${SOURCE_FILE}
+        DESTINATION ${INSTALL_DIR}
+    )
 endforeach()

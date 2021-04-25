@@ -7,3 +7,14 @@ script:
     - cd build
     - cmake -G 'MinGW Makefiles' ..
     - mingw32-make VERBOSE=1
+    - mingw32-make install
+    - zip -r fsg_windows${TRAVIS_TAG}.zip fsg/
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "Gd/JQ43bQqRkL62tuggKaGoQmJz3LnWtcYnFp2qci7xaNIwNTpzqMQxwELZAd7wR2hCokeZKLEy5fiVbpzPJYfmujIE4i8c0BRFObacJGQjx+QUfRGHdDRrUCZLs+wqYaK4vxI7TIW//RNtv2oiE2A3WWLJXu7waWpbb1UVngeNeP7XHy9dPlRvbUp9i+hcyMulTWz78FtiKDrUVepkbzcGnZ1zpZfg3iqanCV/hkw6QW/lyUSko17e5DbM/7s2sC2Vqge2wJdQTfaMdTK8jzBhaA9LExihDs30OB8IXLh8iFlh+zaGSq/gw8P8HcZpgf2NfO1Y7kjoqOeBZzkkj+3cFgiMQs8Zj0WxfLQq//2XpD4JHp0HXedh8hCiYF92jw9XPWwmnJHGSXMTQVJdxhc7VbHWJs1ANUWKtR9DjRWoBhngLkUdYw0jKPQe8UdMqQuejqCLb8eHnNdeDddQlx9zr8WTQfDCrcnG0cPbq2IbW7ljLGx2Yk4b7gG0H8UddCJGtDDU8J3a9AuogHGLECMXUSuOLQTamfYd/hM9R4+0lWW+VPYh7grqoxpXj7L11Gfj7kkSfC+ps2sqp4QF32UMEBES9D36W1qyeySX/A2N5wsu7quZ5ra6cy3Zi7cJmK+1RThF+CKwcLeoTeRe1z5aR8yXSZaUia7vONCfiFzg="
+  file: "fsg_windows${TRAVIS_TAG}.zip"
+  skip_cleanup: true
+  on:
+    tags: true    
