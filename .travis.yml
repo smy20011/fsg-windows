@@ -5,5 +5,5 @@ os: windows
 script:
     - mkdir build
     - cd build
-    - cmake ..
-    - make
+    - cmake -G 'MinGW Makefiles' ..
+    - mingw32-make
