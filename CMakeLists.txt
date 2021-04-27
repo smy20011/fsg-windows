@@ -25,7 +25,7 @@ foreach(SOURCE_FILE IN LISTS SOURCE_FILES)
     set(PATCHED_SOURCE ${CMAKE_BINARY_DIR}/generated/${FOLDER_NAME}.c)
     add_custom_command(
         OUTPUT ${PATCHED_SOURCE}
-        COMMAND sed "s/unsigned long/uint64_t/g; s/1UL /1ULL /g; s/long sh_dist/int64_t sh_dist/g;" ${SOURCE_FILE} > ${PATCHED_SOURCE}
+        COMMAND sed "s/unsigned long/uint64_t/g; s/1UL /1ULL /g; s/long/int64_t/g;" ${SOURCE_FILE} > ${PATCHED_SOURCE}
 	    COMMAND patch ${PATCHED_SOURCE} ${CMAKE_SOURCE_DIR}/rand.patch
         DEPENDS ${SOURCE_FILE}
         VERBATIM)
