@@ -7,9 +7,11 @@ set(LIBRARIES gcrypt gpg-error cubiomes m pthread minecraft_nether_gen_rs)
 message("Generator: ${CMAKE_GENERATOR}")
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows.*")
     set(LIB_DIR libs/windows_x86_64)
+    set(EXECUTABLE_POSTFIX ".exe")
     list(APPEND LIBRARIES userenv intl.dll ws2_32)
 else()
     set(LIB_DIR libs/linux_x86_64)
+    set(EXECUTABLE_POSTFIX "")
     list(APPEND LIBRARIES dl)
 endif()
 
@@ -34,8 +36,9 @@ foreach(SOURCE_FILE IN LISTS SOURCE_FILES)
     set(INSTALL_DIR ${CMAKE_BINARY_DIR}/fsg/${FOLDER_NAME})
     file(MAKE_DIRECTORY ${INSTALL_DIR})
     install(
-        TARGETS ${FOLDER_NAME}
+        FILES ${CMAKE_BINARY_DIR}/${FOLDER_NAME}${EXECUTABLE_POSTFIX}
         DESTINATION ${INSTALL_DIR}
+        RENAME seed${EXECUTABLE_POSTFIX}
     )
     install(
         FILES ${SOURCE_FILE}
