@@ -39,9 +39,15 @@ foreach(SOURCE_FILE IN LISTS SOURCE_FILES)
         FILES ${CMAKE_BINARY_DIR}/${FOLDER_NAME}${EXECUTABLE_POSTFIX}
         DESTINATION ${INSTALL_DIR}
         RENAME seed${EXECUTABLE_POSTFIX}
+        PERMISSIONS OWNER_EXECUTE
     )
     install(
         FILES ${SOURCE_FILE}
         DESTINATION ${INSTALL_DIR}
+    )
+    install(
+        FILES runner/run.bat
+        DESTINATION ${INSTALL_DIR}
+        PERMISSIONS OWNER_EXECUTE        
     )
 endforeach()
